@@ -1,239 +1,86 @@
 ---
-title: API Reference
+title: locklock documentation
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
   - python
-  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
+  - <a href='mailto:support@locklock.io'>Support</a>
+  - <a href='https://docs.locklock.io'>Link to this page</a>
 
-includes:
-  - errors
+# includes:
+#   - errors
 
-search: true
+# search: true
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Locklock documentation!
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Locklock is a REST API for simple distributed locking. Acquiring a lock is as easy as `POST`ing to an endpoint and releasing that same lock is done by `DELETE`ing that same endpoint.
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+When accessed by multiple clients at the same time, locklock guarantees only one of the incoming requests will acquire the specified lock.
 
-# Authentication
+Locklock was designed to be instantly usable and is accessible as a free public service at `https://public.locklock.io/v1/api`.
 
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
+# Quickstart
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+curl -X POST \
+    -H "Content-Type: application/json" \
+    https://public.locklock.io/v1/api/lock/uuid/180da65c-cf80-4997-8574-0c0801817d6f
 ```
 
-```javascript
-const kittn = require('kittn');
+Acquiring a lock is as simple as:
 
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+`POST https://public.locklock.io/v1/api/lock/uuid/<uuid>`
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl -X DELETE \
+    -H "Content-Type: application/json" \
+    https://public.locklock.io/v1/api/lock/uuid/180da65c-cf80-4997-8574-0c0801817d6f
 ```
 
-```javascript
-const kittn = require('kittn');
+Releasing an acquired lock is accomplished by:
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
+`DELETE https://public.locklock.io/v1/api/lock/uuid/<uuid>`
 
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+# Usage
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+curl -X POST \
+    -d '{"secret":"super-secret", "expires_in": 300}' \
+    -H "Content-Type: application/json" \
+    https://public.locklock.io/v1/api/lock/uuid/180da65c-cf80-4997-8574-0c0801817d6f
 ```
 
-```javascript
-const kittn = require('kittn');
+The user may specify two POST parameters:
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+- `expires_in`: specifies the lock expiration time in seconds (default: 30 days)
+- `secret`: specifies a secret that is required to release the lock
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
+curl -X DELETE \
+    -d '{"secret":"super-secret"}' \
+    -H "Content-Type: application/json" \
+    https://public.locklock.io/v1/api/lock/uuid/180da65c-cf80-4997-8574-0c0801817d6f
 ```
 
-```javascript
-const kittn = require('kittn');
+If a `secret` is provided when acquiring the lock, a `secret` is required to release the lock (unless the lock expires).
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
+# Pro accounts
 
-> The above command returns JSON structured like this:
+For users with production-level requirements, paid Pro accounts are available. Please contact <a href='mailto:support@locklock.io'>support@locklock.io</a> for more information.
 
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
+Feature | Developer | Pro
+--------- | ----------- | -----------
+Access to public API | + | +
+UUID-named locks (`/lock/uuid/<uuid>`) | + | +
+Custom subdomain | - | +
+Custom (non-UUID) lock names (`/lock/key/<custom-name>`) | - | +
+API key | - | +
+Higher throttling limits | - | +
+Custom AWS regions | - | +
+Enhanced support | - | +
