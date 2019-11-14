@@ -18,16 +18,23 @@ toc_footers:
 
 Welcome to the Locklock documentation!
 
-Locklock is a REST API for simple distributed locking. Acquiring a lock is as easy as `POST`ing to an endpoint and releasing that same lock is done by `DELETE`ing that same endpoint.
+The easiest was to describe Locklock is Lock-as-a-Service - a REST API for simple distributed locking.
+
+Acquiring a lock is as easy as `POST`ing to an endpoint, and releasing that same lock is done by `DELETE`ing that same endpoint:
+
+![Timeline](images/timeline.png)
 
 When accessed by multiple clients at the same time, locklock guarantees only one of the incoming requests will acquire the specified lock.
 
 Locklock was designed to be instantly usable and is accessible as a free public service at `https://public.locklock.io/v1/api`.
 
+Paid accounts with additional functionality are also available, see below for more information.
+
 # Quickstart
 
 ```shell
-curl -X POST https://public.locklock.io/v1/api/lock/uuid/180da65c-cf80-4997-8574-0c0801817d6f
+curl -X POST \
+  https://public.locklock.io/v1/api/lock/uuid/180da65c-cf80-4997-8574-0c0801817d6f
 ```
 
 Acquiring a lock is as simple as:
@@ -35,7 +42,8 @@ Acquiring a lock is as simple as:
 `POST https://public.locklock.io/v1/api/lock/uuid/<uuid>`
 
 ```shell
-curl -X DELETE https://public.locklock.io/v1/api/lock/uuid/180da65c-cf80-4997-8574-0c0801817d6f
+curl -X DELETE \
+  https://public.locklock.io/v1/api/lock/uuid/180da65c-cf80-4997-8574-0c0801817d6f
 ```
 
 Releasing an acquired lock is accomplished by:
