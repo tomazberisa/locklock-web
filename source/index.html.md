@@ -71,7 +71,9 @@ curl -X DELETE \
     https://public.locklock.io/v1/api/lock/uuid/180da65c-cf80-4997-8574-0c0801817d6f
 ```
 
-If a `secret` is provided when acquiring the lock, a `secret` is required to release the lock (unless the lock expires).
+If a `secret` is provided when acquiring the lock, that same `secret` is required to release the lock (unless the lock expires). This may be useful in situations where multiple clients have knowledge of the lock id:
+
+![Timeline secret](images/timeline-secret.png)
 
 # Pro accounts
 
