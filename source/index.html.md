@@ -85,6 +85,7 @@ Access to public API | + | +
 UUID-named locks (`/lock/uuid/<uuid>`) | + | +
 Custom subdomain | - | +
 Custom (non-UUID) lock names (`/lock/key/<custom-name>`) | - | +
+Attach data payload to lock | - | +
 API key | - | +
 Higher throttling limits | - | +
 Custom AWS regions | - | +
