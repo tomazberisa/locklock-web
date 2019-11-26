@@ -18,7 +18,7 @@ toc_footers:
 
 Welcome to the Locklock documentation!
 
-The easiest was to describe Locklock is Lock-as-a-Service - a REST API for simple distributed locking.
+The easiest was to describe Locklock is Lock-as-a-Service - a REST API for simple distributed locks.
 
 Acquiring a lock is as easy as `POST`ing to an endpoint, and releasing that same lock is done by `DELETE`ing that same endpoint:
 
