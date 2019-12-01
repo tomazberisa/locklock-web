@@ -18,7 +18,9 @@ toc_footers:
 
 Welcome to the Locklock documentation!
 
-The easiest was to describe Locklock is Lock-as-a-Service - a REST API for simple distributed locks.
+The easiest was to describe Locklock is Lock-as-a-Service - a REST API for simple distributed locks. 
+
+We built Locklock because simple patterns of distributed locking kept coming up in our system designs. One common use case is guaranteeing a particular operation takes place at most once. For example, some AWS services guarantee [at-least-once delivery](https://aws.amazon.com/sns/faqs/#Reliability), but some operations need to take place *exactly* once. To accomplish this, simply acquire a lock for the identifier representing the originating event and never release it. Another (albeit more general) use case is ensuring multiple components of a distributed system take turns accessing a shared resource.
 
 Acquiring a lock is as easy as `POST`ing to an endpoint, and releasing that same lock is done by `DELETE`ing that same endpoint:
 
@@ -28,7 +30,7 @@ When accessed by multiple clients at the same time, locklock guarantees only one
 
 Locklock was designed to be instantly usable and is accessible as a free public service at `https://public.locklock.io/v1/api`.
 
-Paid accounts with additional functionality are also available, see below for more information.
+The free version of Locklock supports UUIDs as lock identifiers as it is straightforward to ensure uniqueness of these identifiers across multiple users and avoid namespace collisions. Paid accounts support a range of additional functionality, including custom lock identifiers in your own namespace (see below for more information).
 
 # Quickstart
 
