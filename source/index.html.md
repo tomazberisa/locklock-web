@@ -36,9 +36,9 @@ We built Locklock mainly because simple patterns of distributed locking kept com
 
 The common use case is ensuring multiple components of a distributed system take turns accessing a shared resource.
 
-A special case of that is guaranteeing a particular operation takes place at most once. For example, some AWS services guarantee [at-least-once delivery](https://aws.amazon.com/sns/faqs/#Reliability), but sometimes consequences of these events need to execute *exactly* once. To accomplish this, simply acquire a lock for the identifier representing the originating event once and don't release it.
+A special case of that is guaranteeing a particular operation takes place at most once. For example, some AWS services guarantee [at-least-once delivery](https://aws.amazon.com/sns/faqs/#Reliability), but sometimes consequences of these events need to execute *exactly* once. To accomplish this, simply acquire a lock for the identifier representing the originating event and don't release it.
 
-Our secondary motivation was to unify locking logic across components of a distributed system, which may be written in different programming languages. By using Locklock, they only need to know how to communicate with a simple REST API.
+Our secondary motivation was to unify locking logic across components of a distributed system, which may be written using different programming languages or deployed accross cloud providers. By using Locklock, they only need to know how to communicate with a simple REST API.
 
 # Quickstart
 
