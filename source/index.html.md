@@ -5,7 +5,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
 toc_footers:
-  - <a href='mailto:support@locklock.io'>Support</a>
+  - <a href='mailto:support@locklock.io'>Email support</a>
   - <a href='https://docs.locklock.io'>Link to this page</a>
 
 # includes:
@@ -87,7 +87,7 @@ If a `secret` is provided when acquiring the lock, that same `secret` is require
 
 # Pro accounts
 
-For users with production-level requirements, paid Pro accounts are available. Please contact <a href='mailto:support@locklock.io'>support@locklock.io</a> for more information.
+For users with production-level requirements, paid Pro accounts are available. Please contact support via the chat widget on this page or <a href='mailto:support@locklock.io'>support@locklock.io</a> for more information.
 
 Feature | Developer | Pro
 --------- | ----------- | -----------
